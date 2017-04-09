@@ -1,4 +1,4 @@
-# Checkmate Life Server
+# Checkmate Life Mobile App
 
 ## Versioning
 
