@@ -37,6 +37,5 @@ angular.module('checkmatelife.controllers')
                 numOfTasks += goal.lifeArea == area._id && goal.metrics.length > 0 ? $scope.getMetricStatus(goal, goal.metrics[0]) : 0;
             });
             return numOfTasks;
-            return 0;
         }
     }]);

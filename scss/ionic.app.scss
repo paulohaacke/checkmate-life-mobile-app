@@ -17,7 +17,18 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-
+$light: lighten(#374d3c, 60%);
+$stable: #374d3c !default;
+$button-stable-text: white !default;
+$button-stable-border: $stable !default;
+$button-light-active-border: #4a6751 !default;
+$item-divider-bg: $stable !default;
+$item-divider-color: white !default;
+$item-light-border: lighten(#4a6751, 30%) !default;
+$base-background-color: $light !default;
+$item-default-active-bg: lighten(#4a6751, 30%) !default;
+$menu-bg: $light !default;
+$positive: #374d3c !default;
+$modal-bg-color: $light !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-

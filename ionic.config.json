@@ -1,4 +1,13 @@
 {
-  "name": "checkmate-life-mobile-app",
-  "app_id": ""
+    "name": "checkmate-life-mobile-app",
+    "app_id": "",
+    "gulpStartupTasks": [
+        "sass",
+        "watch"
+    ],
+    "watchPatterns": [
+        "www/**/*",
+        "!www/lib/**/*",
+        "!www/**/*.map"
+    ]
 }

@@ -1,2 +1,16 @@
 <ion-view view-title="Tasks">
+    <div class="tabs-striped tabs-color-stable">
+        <div class="tabs">
+            <a ng-class="{active:isSelected('todo')}" class="tab-item" ng-click="select('todo')">To Do</a>
+            <a ng-class="{active:isSelected('doing')}" class="tab-item" ng-click="select('doing')">Doing</a>
+            <a ng-class="{active:isSelected('done')}" class="tab-item" ng-click="select('done')">Done</a>
+        </div>
+    </div>
+    <ion-content>
+        <ul class="list">
+            <li class="item" ng-repeat="task in tasks | filter:{state: curTab} track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
+                {{task.description || "Edit this field"}}
+            </li>
+        </ul>
+    </ion-content>
 </ion-view>

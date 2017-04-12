@@ -81,6 +81,4 @@ app.service('AuthenticationSrvc', ['$localStorage', 'baseURL', 'USER_ROLES', 'Se
         })
     }
 
-    this.loadUserSession();
-
 }]);
