@@ -30,5 +30,9 @@ $item-default-active-bg: lighten(#4a6751, 30%) !default;
 $menu-bg: $light !default;
 $positive: #374d3c !default;
 $modal-bg-color: $light !default;
+$assertive: #b71c1c !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+.item-content {
+    background-color: inherit !important;
+}

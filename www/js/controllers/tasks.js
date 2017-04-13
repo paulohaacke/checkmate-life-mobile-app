@@ -9,18 +9,24 @@
  */
 
 angular.module('checkmatelife.controllers')
-    .controller('TasksCtrl', ['$scope', '$q', 'TasksFactory', 'tasks', 'goals', 'lifeAreas', 'TASK_STATES', function($scope, $q, TasksFactory, tasks, goals, lifeAreas, TASK_STATES) {
+    .controller('TasksCtrl', ['$scope', '$q', '$ionicPopup', '$ionicListDelegate', 'TasksFactory', 'tasks', 'goals', 'lifeAreas', 'TASK_STATES', function($scope, $q, $ionicPopup, $ionicListDelegate, TasksFactory, tasks, goals, lifeAreas, TASK_STATES) {
         $scope.lifeAreas = lifeAreas;
         $scope.tasks = tasks;
         $scope.goals = goals;
+        $scope.shouldShowDelete = false;
 
         $scope.curTab = TASK_STATES.todo;
+
+        $scope.toggleDelete = function() {
+            $scope.shouldShowDelete = !$scope.shouldShowDelete;
+        }
 
         $scope.isSelected = function(taskState) {
             return $scope.curTab == taskState;
         }
 
         $scope.select = function(taskState) {
+            $scope.shouldShowDelete = false;
             $scope.curTab = taskState;
         }
 
@@ -40,23 +46,66 @@ angular.module('checkmatelife.controllers')
         }
 
         $scope.openAddTaskDialog = function() {
-            /*ngDialog.open({
-                template: 'views/add-task.html',
+            $scope.shouldShowDelete = false;
+            $ionicListDelegate.closeOptionButtons();
+            $scope.taskData = {};
+
+            var addTaskPopup = $ionicPopup.show({
+                templateUrl: 'templates/form-task.html',
+                title: 'Add Task',
+                //subTitle: '',
                 scope: $scope,
-                data: { tasks: $scope.tasks },
-                className: 'ngdialog-theme-default',
-                controller: 'AddTaskCtrl'
-            });*/
+                buttons: [{
+                        text: 'Cancel',
+                    },
+                    {
+                        text: 'Add',
+                        onTap: function(e) {
+                            if (!$scope.taskData.description) {
+                                e.preventDefault();
+                            } else {
+                                return $scope.taskData;
+                            }
+                        }
+                    }
+                ]
+            });
+
+            addTaskPopup.then(function(taskData) {
+                $scope.addTask(taskData);
+            });
         }
 
         $scope.openEditTaskDialog = function(task) {
-            /*ngDialog.open({
-                template: 'views/add-task.html',
+            $scope.taskData = {};
+            $scope.taskData.description = task.description;
+            $scope.taskData.goal = task.goal;
+
+            var editTaskPopup = $ionicPopup.show({
+                templateUrl: 'templates/form-task.html',
+                title: 'Edit Task',
+                //subTitle: '',
                 scope: $scope,
-                data: { task: task },
-                className: 'ngdialog-theme-default',
-                controller: 'AddTaskCtrl'
-            });*/
+                buttons: [{
+                        text: 'Cancel',
+                    },
+                    {
+                        text: 'Save',
+                        onTap: function(e) {
+                            if (!$scope.taskData.description) {
+                                e.preventDefault();
+                            } else {
+                                return $scope.taskData;
+                            }
+                        }
+                    }
+                ]
+            });
+
+            editTaskPopup.then(function(taskData) {
+                $scope.updateTask(task, taskData);
+                $ionicListDelegate.closeOptionButtons();
+            });
         }
 
         $scope.rmTask = function(task) {
@@ -64,7 +113,23 @@ angular.module('checkmatelife.controllers')
                 function(response) {
                     $scope.tasks.splice($scope.tasks.indexOf(task), 1);
                 });
-            //ngDialog.close();
+            $ionicListDelegate.closeOptionButtons();
+        }
+
+        $scope.addTask = function(sendData) {
+            TasksFactory.save(sendData,
+                function(response) {
+                    $scope.tasks.push(response);
+                });
+        }
+
+        $scope.updateTask = function(task, sendData) {
+            TasksFactory.update({ id: task._id }, sendData,
+                function(response) {
+                    task.description = response.description;
+                    task.goal = response.goal;
+                    task.state = response.state;
+                });
         }
 
     }])

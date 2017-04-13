@@ -1,0 +1,11 @@
+<div class="list">
+    <label class="item item-input">
+        <input type="text" class="form-control input-sm" id="description" placeholder="Description" ng-model="taskData.description">
+    </label>
+    <label class="item item-input item-select">
+        <div class="input-label">Goal</div>
+        <select id="goals" ng-options="goal._id as goal.description for goal in goals" ng-model="taskData.goal">
+            <option value="">None</option>
+        </select>
+    </label>
+</div>
