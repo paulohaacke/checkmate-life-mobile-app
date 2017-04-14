@@ -10,4 +10,4 @@
 
 var app = angular.module('checkmatelife');
 
-app.constant("baseURL", "https://localhost:3443/");
+app.constant("baseURL", "https://192.168.0.14:3443/");
