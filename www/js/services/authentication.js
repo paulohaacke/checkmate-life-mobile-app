@@ -26,6 +26,21 @@ app.constant('USER_ROLES', {
     guest: 'guest'
 })
 
+app.factory('AuthInterceptor', function($rootScope, $q,
+    AUTH_EVENTS) {
+    return {
+        responseError: function(response) {
+            $rootScope.$broadcast({
+                401: AUTH_EVENTS.notAuthenticated,
+                403: AUTH_EVENTS.notAuthorized,
+                419: AUTH_EVENTS.sessionTimeout,
+                440: AUTH_EVENTS.sessionTimeout
+            }[response.status], response);
+            return $q.reject(response);
+        }
+    };
+})
+
 app.service('AuthenticationSrvc', ['$localStorage', 'baseURL', 'USER_ROLES', 'SessionSrvc', '$q', '$timeout', '$resource', '$rootScope', 'AUTH_EVENTS', function($localStorage, baseURL, USER_ROLES, SessionSrvc, $q, $timeout, $resource, $rootScope, AUTH_EVENTS) {
 
     var TOKEN_KEY = 'Token';

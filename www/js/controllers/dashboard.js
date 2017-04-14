@@ -9,7 +9,7 @@
  */
 
 angular.module('checkmatelife.controllers')
-    .controller('DashboardCtrl', ['$scope', 'TasksFactory', 'tasks', 'goals', 'lifeAreas', 'TASK_STATES', 'METRIC_TYPE', function($scope, TasksFactory, tasks, goals, lifeAreas, TASK_STATES, METRIC_TYPE) {
+    .controller('DashboardCtrl', ['$scope', 'TasksFactory', 'tasks', 'goals', 'lifeAreas', 'TASK_STATES', 'METRIC_TYPE', '$ionicHistory', '$state', function($scope, TasksFactory, tasks, goals, lifeAreas, TASK_STATES, METRIC_TYPE, $ionicHistory, $state) {
         $scope.lifeAreas = lifeAreas;
         $scope.tasks = tasks;
         $scope.goals = goals;

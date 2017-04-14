@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('checkmatelife', ['ionic', 'checkmatelife.controllers', 'checkmatelife.services'])
 
-.run(function($ionicPlatform, $rootScope, AUTH_EVENTS, AuthenticationSrvc, SessionSrvc) {
+.run(function($ionicPlatform, $rootScope, AUTH_EVENTS, AuthenticationSrvc, SessionSrvc, $state, $ionicModal, LoginSrvc, $ionicHistory, $window) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -23,6 +23,7 @@ angular.module('checkmatelife', ['ionic', 'checkmatelife.controllers', 'checkmat
 
     $rootScope.$on('$stateChangeStart', function(event, next) {
         AuthenticationSrvc.loadUserSession();
+
         if (next.data) {
             var authorizedRoles = next.data.authorizedRoles;
             if (!AuthenticationSrvc.isAuthorized(authorizedRoles)) {
@@ -41,12 +42,21 @@ angular.module('checkmatelife', ['ionic', 'checkmatelife.controllers', 'checkmat
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
         $rootScope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
         $rootScope.username = SessionSrvc.userId;
+        $window.location.reload(true);
     });
 
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function(event, next) {
         $rootScope.isAuthenticated = AuthenticationSrvc.isAuthenticated();
         $rootScope.username = SessionSrvc.userId;
     });
+
+    //$rootScope.$on(AUTH_EVENTS.notAuthenticated, $scope.login);
+    //$rootScope.$on(AUTH_EVENTS.sessionTimeout, $scope.login);
+    $rootScope.$on(AUTH_EVENTS.notAuthorized, function() {
+        LoginSrvc.login();
+    });
+
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -81,21 +91,22 @@ angular.module('checkmatelife', ['ionic', 'checkmatelife.controllers', 'checkmat
     })
 
     .state('app.goals', {
-            url: '/goals',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/goals.html'
-                }
+        url: '/goals',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/goals.html'
             }
-        })
-        .state('app.purpose', {
-            url: '/purpose',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/purpose.html'
-                }
+        }
+    })
+
+    .state('app.purpose', {
+        url: '/purpose',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/purpose.html'
             }
-        })
+        }
+    })
 
     .state('app.tasks', {
         url: '/tasks',
@@ -110,9 +121,29 @@ angular.module('checkmatelife', ['ionic', 'checkmatelife.controllers', 'checkmat
                 }
             }
         }
+    })
+
+    .state('app.profile', {
+        url: '/profile',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/profile.html',
+                controller: 'ProfileCtrl'
+            }
+        }
     });
+
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');
+})
+
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push([
+        '$injector',
+        function($injector) {
+            return $injector.get('AuthInterceptor');
+        }
+    ]);
 });
 
 angular.module('checkmatelife.controllers', ['checkmatelife.services']);
