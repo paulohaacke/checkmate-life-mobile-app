@@ -13,17 +13,20 @@
 
     <ion-side-menu side="left">
         <ion-header-bar class="bar-stable">
-            <h1 class="title">Menu</h1>
+            <h1 class="title">Checkmate Life</h1>
         </ion-header-bar>
         <ion-content>
             <ion-list>
                 <ion-item menu-close ng-if="isAuthenticated" href="#" ui-sref="app.dashboard">
                     Dashboard
                 </ion-item>
-                <ion-item ng-if="false" menu-close ng-if="isAuthenticated" href="#" ui-sref="app.purpose">
+                <ion-item menu-close ng-if="isAuthenticated" href="#" ui-sref="app.purpose">
                     Purpose
                 </ion-item>
-                <ion-item ng-if="false" menu-close href="#" ui-sref="app.goals">
+                <ion-item menu-close href="#" ui-sref="app.whoami">
+                    Who Am I
+                </ion-item>
+                <ion-item menu-close href="#" ui-sref="app.goals">
                     Goals
                 </ion-item>
                 <ion-item menu-close ng-if="isAuthenticated" href="#" ui-sref="app.tasks">

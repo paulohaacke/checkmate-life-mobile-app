@@ -1,2 +1,46 @@
 <ion-view view-title="Purpose">
+    <ion-content>
+        <div class="list card" style="background-color: inherit">
+            <div class="item item-divider">
+                Mission
+            </div>
+            <ion-list class="list" show-delete="shouldShowDelete">
+                <ion-item class="item item-text-wrap text-center">
+                    {{purpose.mission || "Where do you want to be in 10 years?"}}
+                    <br><small ng-if="!purpose.mission">Swipe left to edit this item.</small>
+                    <ion-option-button class="button-positive icon ion-edit" ng-click="openEditMissionDialog(purpose.mission)">
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="list card" style="background-color: inherit">
+            <div class="item item-divider">
+                Vision
+            </div>
+            <ion-list class="list" show-delete="shouldShowDelete">
+                <ion-item class="item item-text-wrap text-center">
+                    {{purpose.vision || "How do you want to be seen in 10 years?"}}
+                    <br><small ng-if="!purpose.vision">Swipe left to edit this item.</small>
+                    <ion-option-button class="button-positive icon ion-edit" ng-click="openEditVisionDialog(purpose.vision)">
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="list card" style="background-color: inherit">
+            <div class="item item-divider">
+                <span style="vertical-align: middle; line-height: 47px">Values</span>
+                <button class="button button-assertive button-icon icon ion-ios-minus-outline" style="margin:0;float:right;" ng-click="toggleDelete()"></button>
+                <button class="button button-assertive button-icon icon ion-ios-plus-outline" style="margin:0;float:right;" ng-click="openAddValueDialog()"></button>
+            </div>
+            <ion-list class="list" show-delete="shouldShowDelete">
+                <ion-item class="item item-text-wrap" ng-repeat="value in purpose.values | orderBy: 'content'">
+                    {{value.content || "Edit this field with a value you have in life!"}}
+                    <ion-option-button class="button-positive icon ion-edit" ng-click="openEditValueDialog(value)">
+                    </ion-option-button>
+                    <ion-delete-button class="ion-trash-b" ng-click="rmValue(purpose._id, value)">
+                    </ion-delete-button>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-content>
 </ion-view>

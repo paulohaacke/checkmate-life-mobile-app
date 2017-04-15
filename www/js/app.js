@@ -54,8 +54,14 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
         $rootScope.username = SessionSrvc.userId;
     });
 
-    //$rootScope.$on(AUTH_EVENTS.notAuthenticated, $scope.login);
-    //$rootScope.$on(AUTH_EVENTS.sessionTimeout, $scope.login);
+    $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
+        LoginSrvc.login();
+    });
+
+    $rootScope.$on(AUTH_EVENTS.sessionTimeout, function() {
+        LoginSrvc.login();
+    });
+
     $rootScope.$on(AUTH_EVENTS.notAuthorized, function() {
         LoginSrvc.login();
     });
@@ -98,7 +104,18 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
         url: '/goals',
         views: {
             'menuContent': {
-                templateUrl: 'templates/goals.html'
+                templateUrl: 'templates/goals.html',
+                controller: 'GoalsCtrl'
+            }
+        }
+    })
+
+    .state('app.whoami', {
+        url: '/whoami',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/whoami.html',
+                controller: 'ContextsCtrl'
             }
         }
     })
@@ -107,7 +124,8 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
         url: '/purpose',
         views: {
             'menuContent': {
-                templateUrl: 'templates/purpose.html'
+                templateUrl: 'templates/purpose.html',
+                controller: 'PurposeCtrl'
             }
         }
     })

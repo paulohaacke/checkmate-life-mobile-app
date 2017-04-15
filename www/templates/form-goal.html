@@ -1,0 +1,28 @@
+<ion-modal-view>
+    <form ng-submit="saveGoal(goalData)">
+        <ion-header-bar>
+            <h1 class="title">Edit Goal</h1>
+            <div class="buttons">
+                <button class="button button-clear button-positive icon ion-checkmark-round" type="submit"></button>
+                <button class="button button-clear button-assertive icon ion-close-round" ng-click="closeDialog()"></button>
+            </div>
+        </ion-header-bar>
+        <ion-content>
+            <ion-list>
+                <label class="item item-input">
+                    <input type="text" class="form-control input-sm" id="description" placeholder="Description" ng-model="goalData.description">
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">Metric</div>
+                    <select id="metrics" ng-options="metric for metric in metricTypes track by metric" ng-model="goalData.metrics">
+                        <option value="">None</option>
+                    </select>
+                </label>
+                <div class="item item-divider">
+                    Dependencies
+                </div>
+                <ion-checkbox ng-model="goalData.dependencies[goal._id]" ng-repeat="goal in goals | orderBy: 'description'">{{goal.description}}</ion-checkbox>
+            </ion-list>
+        </ion-content>
+    </form>
+</ion-modal-view>

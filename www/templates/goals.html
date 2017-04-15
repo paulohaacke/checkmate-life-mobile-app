@@ -1,2 +1,30 @@
 <ion-view view-title="Goals">
+    <ion-nav-buttons side="secondary">
+        <div class="buttons">
+            <button class="button button-icon icon ion-ios-plus-outline" ng-click="openAddGoalDialog(getCurrentLifeAreaId())"></button>
+            <button class="button button-icon icon ion-ios-minus-outline" ng-click="toggleDelete()"></button>
+        </div>
+    </ion-nav-buttons>
+
+    <ion-slides options="options" slider="data.slider">
+        <ion-slide-page id="{{area._id}}" ng-repeat="area in lifeAreas | orderBy: 'label'">
+            <ion-content>
+                <div class="list card" ng-style="{ 'background-color' : area['color-bg'] }">
+                    <ion-item class="item item-divider" ng-style="{ 'background-color' : area['color'] }">
+                        {{area.label}}
+                    </ion-item>
+                    <ion-list class="list" show-delete="shouldShowDelete">
+                        <ion-item class="item item-text-wrap do_not_swipe" ng-repeat="goal in goals | filter:{lifeArea: area._id}:strict | orderBy: 'description'" ng-style="{ 'background-color' : area['color-bg'] }">
+                            {{goal.description || "Edit this field"}}
+                            <ion-option-button class="button-positive" ng-click="openEditGoalDialog(area._id, goal)">
+                                <i class="icon ion-edit"></i>
+                            </ion-option-button>
+                            <ion-delete-button class="ion-trash-b" ng-click="rmGoal(goal)">
+                            </ion-delete-button>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </ion-content>
+        </ion-slide-page>
+    </ion-slides>
 </ion-view>

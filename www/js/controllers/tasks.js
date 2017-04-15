@@ -57,6 +57,9 @@ angular.module('checkmatelife.controllers')
                 scope: $scope,
                 buttons: [{
                         text: 'Cancel',
+                        onTap: function(e) {
+                            return false;
+                        }
                     },
                     {
                         text: 'Add',
@@ -72,7 +75,9 @@ angular.module('checkmatelife.controllers')
             });
 
             addTaskPopup.then(function(taskData) {
-                $scope.addTask(taskData);
+                if (taskData !== undefined)
+                    $scope.addTask(taskData);
+                $ionicListDelegate.closeOptionButtons();
             });
         }
 
@@ -87,7 +92,7 @@ angular.module('checkmatelife.controllers')
                 //subTitle: '',
                 scope: $scope,
                 buttons: [{
-                        text: 'Cancel',
+                        text: 'Cancel'
                     },
                     {
                         text: 'Save',
@@ -103,7 +108,9 @@ angular.module('checkmatelife.controllers')
             });
 
             editTaskPopup.then(function(taskData) {
-                $scope.updateTask(task, taskData);
+                if (taskData !== undefined) {
+                    $scope.updateTask(task, taskData);
+                }
                 $ionicListDelegate.closeOptionButtons();
             });
         }

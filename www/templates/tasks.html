@@ -14,7 +14,7 @@
             </div>
         </div>
         <ion-list class="list" show-delete="shouldShowDelete">
-            <ion-item class="item-text-wrap" ng-repeat="task in tasks | filter:{state: curTab} track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
+            <ion-item class="item-text-wrap" ng-repeat="task in tasks | filter:{state: curTab} | orderBy: 'description' track by task._id" ng-style="{ 'background-color' : getLifeAreaFromGoal(task.goal)['color-bg']}">
                 {{task.description || "Edit this field"}}
                 <ion-option-button class="button-positive" ng-click="openEditTaskDialog(task)">
                     <i class="icon ion-edit"></i>
