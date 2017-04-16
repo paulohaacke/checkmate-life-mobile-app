@@ -9815,5 +9815,5 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-.item-content {
+.item-inherit-bgcolor .item-content {
   background-color: inherit !important; }

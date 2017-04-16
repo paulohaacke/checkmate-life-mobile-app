@@ -7,7 +7,7 @@
                 <button class="button button-assertive button-icon icon ion-ios-plus-outline" style="margin:0;float:right;" ng-click="openAddFactDialog(context)"></button>
             </div>
             <ion-list class="list" show-delete="shouldShowDelete[$index]">
-                <ion-item class="item item-text-wrap" ng-repeat="fact in context.facts | orderBy: 'description'" ng-style="{ 'background-color' : context['color-bg'], 'border-color': context['color'] }">
+                <ion-item class="item item-text-wrap item-inherit-bgcolor" ng-repeat="fact in context.facts | orderBy: 'description'" ng-style="{ 'background-color' : context['color-bg'], 'border-color': context['color'] }">
                     {{fact.description || "Swipe left to edit this. "}}
                     <ion-option-button class="button-positive icon ion-edit" ng-click="openEditFactDialog(context._id, fact)">
                     </ion-option-button>

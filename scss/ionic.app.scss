@@ -33,6 +33,6 @@ $modal-bg-color: $light !default;
 $assertive: #b71c1c !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-.item-content {
+.item-inherit-bgcolor .item-content {
     background-color: inherit !important;
 }

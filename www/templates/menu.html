@@ -17,35 +17,35 @@
         </ion-header-bar>
         <ion-content>
             <ion-list>
-                <ion-item menu-close ng-if="isAuthenticated" href="#" ui-sref="app.dashboard">
-                    Dashboard
+                <ion-item menu-close class="item-icon-left" ng-if="isAuthenticated" href="#" ui-sref="app.dashboard">
+                    <i class="icon fa fa-tachometer" aria-hidden="true"></i>Dashboard
                 </ion-item>
-                <ion-item menu-close ng-if="isAuthenticated" href="#" ui-sref="app.purpose">
-                    Purpose
+                <ion-item menu-close class="item-icon-left" ng-if="isAuthenticated" href="#" ui-sref="app.purpose">
+                    <i class="icon fa fa-child" aria-hidden="true"></i>Purpose
                 </ion-item>
-                <ion-item menu-close href="#" ui-sref="app.whoami">
-                    Who Am I
+                <ion-item menu-close class="item-icon-left" href="#" ui-sref="app.whoami">
+                    <i class="icon fa fa-compass" aria-hidden="true"></i>Who Am I
                 </ion-item>
-                <ion-item menu-close href="#" ui-sref="app.goals">
-                    Goals
+                <ion-item menu-close class="item-icon-left" href="#" ui-sref="app.goals">
+                    <i class="icon fa fa-location-arrow" aria-hidden="true"></i>Goals
                 </ion-item>
-                <ion-item menu-close ng-if="isAuthenticated" href="#" ui-sref="app.tasks">
-                    Tasks
+                <ion-item menu-close class="item-icon-left" ng-if="isAuthenticated" href="#" ui-sref="app.tasks">
+                    <i class="icon fa fa-calendar" aria-hidden="true"></i>Tasks
                 </ion-item>
                 <ion-item class="item-divider">
                     Services
                 </ion-item>
-                <ion-item menu-close ng-if="!isAuthenticated" ng-click="login()">
+                <ion-item menu-close class="item-icon-left" ng-if="!isAuthenticated" ng-click="login()">
                     Login
                 </ion-item>
-                <ion-item menu-close ng-if="!isAuthenticated" ng-click="register()">
+                <ion-item menu-close class="item-icon-left" ng-if="!isAuthenticated" ng-click="register()">
                     Register
                 </ion-item>
-                <ion-item menu-close ng-if="isAuthenticated" href="#" ui-sref="app.profile">
-                    Profile
+                <ion-item menu-close class="item-icon-left" ng-if="isAuthenticated" href="#" ui-sref="app.profile">
+                    <i class="icon fa fa-user-circle" aria-hidden="true"></i>Profile
                 </ion-item>
-                <ion-item menu-close ng-if="isAuthenticated" ng-click="logout()">
-                    Log Out
+                <ion-item menu-close class="item-icon-left" ng-if="isAuthenticated" ng-click="logout()">
+                    <i class="icon fa fa-sign-out" aria-hidden="true"></i>Log Out
                 </ion-item>
             </ion-list>
         </ion-content>
