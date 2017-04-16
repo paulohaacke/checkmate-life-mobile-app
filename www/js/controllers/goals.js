@@ -25,6 +25,8 @@ angular.module('checkmatelife')
             //effect: 'slide',
             //speed: 500,
             direction: 'horizontal',
+            //paginationType: 'fraction',
+            //paginationHide: false,
             noSwiping: true,
             noSwipingClass: 'do_not_swipe'
         }
@@ -35,6 +37,7 @@ angular.module('checkmatelife')
 
         $scope.$on("$ionicSlides.sliderInitialized", function(event, data) {
             $scope.slider = data.slider;
+            console.log(data);
         });
 
         $scope.openAddGoalDialog = function(lifeAreaId) {

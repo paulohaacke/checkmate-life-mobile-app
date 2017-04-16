@@ -1,14 +1,14 @@
 <ion-view view-title="Dashboard">
     <ion-content>
-        <div class="list card" ng-repeat="area in lifeAreas | orderBy: 'label'">
-            <div class="item item-divider" ng-style="{ 'background-color' : area['color'] }">
+        <div class="list card" ng-repeat="area in lifeAreas | orderBy: 'label'" ng-style="{ 'box-shadow' : '0 1px 3px '+area['color'] }">
+            <div class="item item-divider" ng-style="{ 'background-color' : area['color'], 'border-color': area['color'] }">
                 {{area.label}}
             </div>
-            <div class="item item-text-wrap text-center" ng-style="{ 'background-color' : area['color-bg'] }">
+            <div class="item item-text-wrap text-center" ng-style="{ 'background-color' : area['color-bg'], 'border-color': area['color'] }">
                 <h6>Completed Tasks</h6>
                 <h1>{{getMetricStatusForArea(area)}}</h1>
             </div>
-            <li class="item" ng-repeat="goal in goals | filter : filterMetrics(area._id) : strict | orderBy: 'description'">
+            <li class="item" ng-repeat="goal in goals | filter : filterMetrics(area._id) : strict | orderBy: 'description'" ng-style="{ 'border-color': area['color'] }">
                 {{goal.description}}
                 <span class="badge badge-positive" ng-repeat="metric in goal.metrics" ng-style="{ 'background-color' : area['color'] }">{{getMetricStatus(goal, metric)}}</span>
             </li>

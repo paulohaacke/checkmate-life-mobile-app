@@ -57,9 +57,6 @@ angular.module('checkmatelife.controllers')
                 scope: $scope,
                 buttons: [{
                         text: 'Cancel',
-                        onTap: function(e) {
-                            return false;
-                        }
                     },
                     {
                         text: 'Add',

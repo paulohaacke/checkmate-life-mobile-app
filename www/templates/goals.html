@@ -9,12 +9,14 @@
     <ion-slides options="options" slider="data.slider">
         <ion-slide-page id="{{area._id}}" ng-repeat="area in lifeAreas | orderBy: 'label'">
             <ion-content>
-                <div class="list card" ng-style="{ 'background-color' : area['color-bg'] }">
-                    <ion-item class="item item-divider" ng-style="{ 'background-color' : area['color'] }">
-                        {{area.label}}
+                <div class="list card" ng-style="{ 'background-color' : area['color-bg'], 'box-shadow' : '0 1px 3px '+area['color'] }">
+                    <ion-item class="item item-divider text-center" ng-style="{ 'background-color' : area['color'] }">
+                        <span style="vertical-align: middle; line-height: 47px">{{area.label}}</span>
+                        <button ng-if="!slider.isBeginning" class="button button-assertive button-icon icon ion-ios-arrow-back" style="margin:0;float:left;" ng-click="slider.slidePrev()"></button>
+                        <button ng-if="!slider.isEnd" class="button button-assertive button-icon icon ion-ios-arrow-forward" style="margin:0;float:right;" ng-click="slider.slideNext()"></button>
                     </ion-item>
                     <ion-list class="list" show-delete="shouldShowDelete">
-                        <ion-item class="item item-text-wrap do_not_swipe" ng-repeat="goal in goals | filter:{lifeArea: area._id}:strict | orderBy: 'description'" ng-style="{ 'background-color' : area['color-bg'] }">
+                        <ion-item class="item item-text-wrap do_not_swipe" ng-repeat="goal in goals | filter:{lifeArea: area._id}:strict | orderBy: 'description'" ng-style="{ 'background-color' : area['color-bg'], 'border-color': area['color'] }">
                             {{goal.description || "Edit this field"}}
                             <ion-option-button class="button-positive" ng-click="openEditGoalDialog(area._id, goal)">
                                 <i class="icon ion-edit"></i>

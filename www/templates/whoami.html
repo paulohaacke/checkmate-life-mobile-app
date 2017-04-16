@@ -1,2 +1,20 @@
 <ion-view view-title="Who Am I">
+    <ion-content>
+        <div class="list card" ng-repeat="context in contexts | orderBy: 'name'" ng-style="{ 'background-color' : context['color-bg'], 'box-shadow' : '0 1px 3px '+context['color'] }">
+            <div class="item item-divider" ng-style="{ 'background-color' : context['color'] }">
+                <span style="vertical-align: middle; line-height: 47px">{{context.name}}</span>
+                <button class="button button-assertive button-icon icon ion-ios-minus-outline" style="margin:0;float:right;" ng-click="toggleDelete($index)"></button>
+                <button class="button button-assertive button-icon icon ion-ios-plus-outline" style="margin:0;float:right;" ng-click="openAddFactDialog(context)"></button>
+            </div>
+            <ion-list class="list" show-delete="shouldShowDelete[$index]">
+                <ion-item class="item item-text-wrap" ng-repeat="fact in context.facts | orderBy: 'description'" ng-style="{ 'background-color' : context['color-bg'], 'border-color': context['color'] }">
+                    {{fact.description || "Swipe left to edit this. "}}
+                    <ion-option-button class="button-positive icon ion-edit" ng-click="openEditFactDialog(context._id, fact)">
+                    </ion-option-button>
+                    <ion-delete-button class="ion-trash-b" ng-click="rmFact(context, fact)">
+                    </ion-delete-button>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-content>
 </ion-view>
