@@ -9,7 +9,7 @@
  */
 
 angular.module('checkmatelife')
-    .controller('GoalsCtrl', ['$scope', '$ionicListDelegate', 'LifeAreaFactory', 'GoalsFactory', 'METRIC_TYPE', '$ionicSlideBoxDelegate', '$ionicPopup', '$rootScope', '$ionicModal', function($scope, $ionicListDelegate, LifeAreaFactory, GoalsFactory, METRIC_TYPE, $ionicSlideBoxDelegate, $ionicPopup, $rootScope, $ionicModal) {
+    .controller('GoalsCtrl', ['$scope', '$ionicListDelegate', 'LifeAreaFactory', 'GoalsFactory', 'METRIC_TYPE', '$ionicSlideBoxDelegate', '$ionicPopup', '$rootScope', '$ionicModal', '$ionicHistory', function($scope, $ionicListDelegate, LifeAreaFactory, GoalsFactory, METRIC_TYPE, $ionicSlideBoxDelegate, $ionicPopup, $rootScope, $ionicModal, $ionicHistory) {
 
         $scope.metricTypes = [METRIC_TYPE.tasks];
         $scope.lifeAreas = LifeAreaFactory.query();
@@ -21,10 +21,10 @@ angular.module('checkmatelife')
         }
 
         $scope.options = {
-            //loop: false,
-            //effect: 'slide',
+            loop: false,
+            effect: 'slide',
             //speed: 500,
-            direction: 'horizontal',
+            //direction: 'horizontal',
             //paginationType: 'fraction',
             //paginationHide: false,
             noSwiping: true,
@@ -37,7 +37,6 @@ angular.module('checkmatelife')
 
         $scope.$on("$ionicSlides.sliderInitialized", function(event, data) {
             $scope.slider = data.slider;
-            console.log(data);
         });
 
         $scope.openAddGoalDialog = function(lifeAreaId) {
@@ -107,6 +106,7 @@ angular.module('checkmatelife')
             GoalsFactory.delete({ id: goal._id },
                 function(response) {
                     $scope.goals.splice($scope.goals.indexOf(goal), 1);
+                    $ionicHistory.clearCache();
                 });
         }
 
@@ -116,6 +116,7 @@ angular.module('checkmatelife')
                     goal.description = response.description;
                     goal.metrics = response.metrics;
                     goal.dependencies = response.dependencies;
+                    $ionicHistory.clearCache();
                 });
         }
 
@@ -123,6 +124,7 @@ angular.module('checkmatelife')
             GoalsFactory.save(sendData,
                 function(response) {
                     $scope.goals.push(response);
+                    $ionicHistory.clearCache();
                 });
         }
 

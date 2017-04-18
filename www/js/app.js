@@ -7,6 +7,7 @@
 angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controllers', 'checkmatelife.services'])
 
 .run(function($ionicPlatform, $rootScope, AUTH_EVENTS, AuthenticationSrvc, SessionSrvc, $ionicModal, LoginSrvc, $window, $cordovaSplashscreen, $timeout) {
+
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -73,14 +74,14 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
     $stateProvider
 
         .state('app', {
-        url: '/app',
+        url: '/',
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
     })
 
     .state('app.dashboard', {
-        url: '/dashboard',
+        url: 'dashboard',
         views: {
             'menuContent': {
                 templateUrl: 'templates/dashboard.html',
@@ -101,7 +102,7 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
     })
 
     .state('app.goals', {
-        url: '/goals',
+        url: 'goals',
         views: {
             'menuContent': {
                 templateUrl: 'templates/goals.html',
@@ -111,7 +112,7 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
     })
 
     .state('app.whoami', {
-        url: '/whoami',
+        url: 'whoami',
         views: {
             'menuContent': {
                 templateUrl: 'templates/whoami.html',
@@ -121,7 +122,7 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
     })
 
     .state('app.purpose', {
-        url: '/purpose',
+        url: 'purpose',
         views: {
             'menuContent': {
                 templateUrl: 'templates/purpose.html',
@@ -131,22 +132,28 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
     })
 
     .state('app.tasks', {
-        url: '/tasks',
+        url: 'tasks',
         views: {
             'menuContent': {
                 templateUrl: 'templates/tasks.html',
                 controller: 'TasksCtrl',
                 resolve: {
-                    tasks: function(TasksFactory) { return TasksFactory.query(); },
-                    goals: function(GoalsFactory) { return GoalsFactory.query(); },
-                    lifeAreas: function(LifeAreaFactory) { return LifeAreaFactory.query() }
+                    tasks: ['TasksFactory', function(TasksFactory) {
+                        return TasksFactory.query();
+                    }],
+                    goals: ['GoalsFactory', function(GoalsFactory) {
+                        return GoalsFactory.query();
+                    }],
+                    lifeAreas: ['LifeAreaFactory', function(LifeAreaFactory) {
+                        return LifeAreaFactory.query()
+                    }]
                 }
             }
         }
     })
 
     .state('app.profile', {
-        url: '/profile',
+        url: 'profile',
         views: {
             'menuContent': {
                 templateUrl: 'templates/profile.html',
@@ -156,7 +163,7 @@ angular.module('checkmatelife', ['ionic', 'ngCordova', 'checkmatelife.controller
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/dashboard');
+    $urlRouterProvider.otherwise('/dashboard');
 })
 
 .config(function($httpProvider) {

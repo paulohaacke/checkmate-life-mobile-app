@@ -9,7 +9,7 @@
  */
 
 angular.module('checkmatelife.controllers')
-    .controller('TasksCtrl', ['$scope', '$q', '$ionicPopup', '$ionicListDelegate', 'TasksFactory', 'tasks', 'goals', 'lifeAreas', 'TASK_STATES', function($scope, $q, $ionicPopup, $ionicListDelegate, TasksFactory, tasks, goals, lifeAreas, TASK_STATES) {
+    .controller('TasksCtrl', ['$scope', '$q', '$ionicPopup', '$ionicListDelegate', 'TasksFactory', 'tasks', 'goals', 'lifeAreas', 'TASK_STATES', '$ionicHistory', function($scope, $q, $ionicPopup, $ionicListDelegate, TasksFactory, tasks, goals, lifeAreas, TASK_STATES, $ionicHistory) {
         $scope.lifeAreas = lifeAreas;
         $scope.tasks = tasks;
         $scope.goals = goals;
@@ -41,8 +41,8 @@ angular.module('checkmatelife.controllers')
         $scope.changeTaskState = function(taskId, state) {
             TasksFactory.update({ id: taskId }, { state: state }, function(response) {
                 $scope.tasks.find(function(el) { return taskId == el._id; }).state = response.state;
+                $ionicHistory.clearCache();
             });
-
         }
 
         $scope.openAddTaskDialog = function() {
@@ -116,6 +116,7 @@ angular.module('checkmatelife.controllers')
             TasksFactory.delete({ id: task._id },
                 function(response) {
                     $scope.tasks.splice($scope.tasks.indexOf(task), 1);
+                    $ionicHistory.clearCache();
                 });
             $ionicListDelegate.closeOptionButtons();
         }
@@ -133,6 +134,7 @@ angular.module('checkmatelife.controllers')
                     task.description = response.description;
                     task.goal = response.goal;
                     task.state = response.state;
+                    $ionicHistory.clearCache();
                 });
         }
 
