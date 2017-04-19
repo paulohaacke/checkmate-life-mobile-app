@@ -4,7 +4,7 @@
             <div class="item item-divider">
                 Mission
             </div>
-            <ion-list class="list" show-delete="shouldShowDelete">
+            <ion-list class="list">
                 <ion-item class="item item-text-wrap text-center">
                     {{purpose.mission || "Where do you want to be in 10 years?"}}
                     <br><small ng-if="!purpose.mission">Swipe left to edit this item.</small>
@@ -17,7 +17,7 @@
             <div class="item item-divider">
                 Vision
             </div>
-            <ion-list class="list" show-delete="shouldShowDelete">
+            <ion-list class="list">
                 <ion-item class="item item-text-wrap text-center">
                     {{purpose.vision || "How do you want to be seen in 10 years?"}}
                     <br><small ng-if="!purpose.vision">Swipe left to edit this item.</small>
