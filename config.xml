@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.checkmatelifemobileapp935726" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>checkmate-life-mobile-app</name>
+<widget id="com.checkmatelife" version="0.1.5-alpha" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Checkmate Life</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Create a strategic plan for life.
     </description>
   <author email="paulohaacke@gmail.com" href="http://paulohaacke.com/">
       Paulo Haacke
